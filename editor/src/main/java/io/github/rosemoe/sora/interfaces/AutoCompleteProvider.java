@@ -23,26 +23,28 @@
  */
 package io.github.rosemoe.sora.interfaces;
 
-import io.github.rosemoe.sora.text.Content;
+import java.util.List;
+
+import io.github.rosemoe.sora.data.CompletionItem;
 import io.github.rosemoe.sora.text.TextAnalyzeResult;
-import io.github.rosemoe.sora.text.TextAnalyzer;
 
 /**
- * Interface for analyzing highlight
+ * Interface for auto completion analysis
  *
  * @author Rose
  */
-public interface CodeAnalyzer {
+public interface AutoCompleteProvider {
 
     /**
-     * Analyze spans for the given input
+     * Analyze auto complete items
      *
-     * @param content  The input text
-     * @param result   Result dest
-     * @param delegate Delegate between thread and analyzer
-     * @see TextAnalyzer#analyze(Content)
-     * @see TextAnalyzer.AnalyzeThread.Delegate#shouldAnalyze()
+     * @param prefix        The prefix of input to match
+     * @param analyzeResult        Last analyze result
+     * @param line          The line of cursor
+     * @param column The column of cursor
+     * @return Analyzed items
      */
-    void analyze(CharSequence content, TextAnalyzeResult result, TextAnalyzer.AnalyzeThread.Delegate delegate);
+    List<CompletionItem> getAutoCompleteItems(String prefix, TextAnalyzeResult analyzeResult, int line, int column);
 
 }
+
